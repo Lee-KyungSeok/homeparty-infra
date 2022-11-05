@@ -65,8 +65,22 @@ output "private_route_tables" {
   value       = aws_route_table.private.*.id
 }
 
-# Prviate route tables
 output "private_db_route_tables" {
-  description = "List of private route table ID in VPC"
+  description = "List of private db route table ID in VPC"
   value       = aws_route_table.private_db.*.id
+}
+
+output "public_cidr" {
+  description = "List of public cidr in VPC"
+  value       = aws_subnet.public.*.cidr_block
+}
+
+output "private_cidr" {
+  description = "List of private cidr in VPC"
+  value       = aws_subnet.private.*.cidr_block
+}
+
+output "private_db_cidr" {
+  description = "List of private db cidr in VPC"
+  value       = aws_subnet.private_db.*.cidr_block
 }

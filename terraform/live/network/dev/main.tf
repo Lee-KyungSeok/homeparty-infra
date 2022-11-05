@@ -1,7 +1,11 @@
+terraform {
+  backend "remote" {}
+}
+
 module "network" {
   source = "../manifests"
 
-  aws_region  = var.aws_region
+  aws_region  = "ap-northeast-2"
   aws_profile = var.aws_profile
   environment = "dev"
 
@@ -25,4 +29,8 @@ module "network" {
   public_availability_zones     = ["ap-northeast-2a", "ap-northeast-2b", "ap-northeast-2c"]
   private_availability_zones    = ["ap-northeast-2a", "ap-northeast-2b", "ap-northeast-2c"]
   private_db_availability_zones = ["ap-northeast-2a", "ap-northeast-2b", "ap-northeast-2c"]
+}
+
+output "main" {
+  value = module.network
 }
