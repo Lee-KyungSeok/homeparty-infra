@@ -22,8 +22,12 @@ aws_secret_access_key = xxxxxxx
 ```
 
 ## 실행
-* private.tfvars 에 username 과 password 를 입력해주세요
+* private.tfvars 를 생성해서 username 과 password 를 입력해주세요
   * 생성 후에 패스워드는 다시 변경하는 것이 보안적으로 안전합니다.
+```terraform
+rds_username = ""
+rds_password = ""
+```
 * 각각의 환경에 맞는 디렉토리 내에서 실행
   * 예) database/dev 에서 실행
 
