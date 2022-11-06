@@ -2,7 +2,7 @@ locals {
   create_enhanced_monitoring = var.rds_monitoring_interval > 0 ? true : false
   writer_rds_record_name     = "main.writer.rds"
   reader_rds_record_name     = "main.reader.rds"
-  rds_ingress_allow_cidrs    = toset(concat(data.terraform_remote_state.network.outputs.main["public_cidr"], data.terraform_remote_state.network.outputs.main["private_cidr"], data.terraform_remote_state.network.outputs.main["private_db_cidr"]))
+  rds_ingress_allow_cidrs    = toset(concat(data.terraform_remote_state.network.outputs.public_cidr, data.terraform_remote_state.network.outputs.private_cidr, data.terraform_remote_state.network.outputs.private_db_cidr))
 }
 
 # DB security Group
@@ -10,7 +10,7 @@ resource "aws_db_subnet_group" "rds_subnet_group" {
   name        = "${local.project}-${var.environment}-dbsubnet-group"
   description = "The subnets used for ${local.project} RDS deployments"
 
-  subnet_ids = data.terraform_remote_state.network.outputs.main["private_db_subnets"]
+  subnet_ids = data.terraform_remote_state.network.outputs.private_db_subnets
 
   tags = merge({}, local.base_tags)
 }
@@ -18,7 +18,7 @@ resource "aws_db_subnet_group" "rds_subnet_group" {
 resource "aws_security_group" "rds_security_group" {
   name        = "${local.project}-${var.environment}-rds-sg"
   description = "${local.project} ${var.rds_engine} security group"
-  vpc_id      = data.terraform_remote_state.network.outputs.main["vpc_id"]
+  vpc_id      = data.terraform_remote_state.network.outputs.vpc_id
 
   lifecycle {
     create_before_destroy = true
@@ -116,6 +116,8 @@ resource "aws_db_instance" "main" {
   auto_minor_version_upgrade = true
 
   deletion_protection = var.rds_deletion_protection
+  skip_final_snapshot = var.rds_skip_final_snapshot
+  final_snapshot_identifier = var.rds_final_snapshot_identifier
 
   tags = merge(local.base_tags)
 

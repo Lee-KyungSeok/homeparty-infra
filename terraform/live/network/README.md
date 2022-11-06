@@ -23,15 +23,15 @@ aws_secret_access_key = xxxxxxx
   * 예) network/dev 에서 실행
 
 ```sh
-# terraform init
-$ terraform init -backend-config=backend.tfvars
+# terragrunt init
+$ terragrunt init
 
-# terraform plan
-$ terraform plan -out=./tfplan -var="aws_profile=homeparty_dev"
+# terragrunt plan
+$ terragrunt plan -out=./tfplan -var="aws_profile=homeparty_dev"
 
 # terraform apply
-$ terraform apply ./tfplan
+$ terragrunt apply ./tfplan
 
 # terraform destory
-$ terraform destroy -var="aws_profile=homeparty_dev"
+$ terragrunt destroy -var="aws_profile=homeparty_dev"
 ```

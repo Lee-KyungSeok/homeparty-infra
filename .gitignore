@@ -11,6 +11,7 @@
 .terraform
 tfplan
 private.tfvars
+.terragrunt-cache/
 
 ### Keys ###
 *.pem

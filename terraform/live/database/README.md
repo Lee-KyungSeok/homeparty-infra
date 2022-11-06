@@ -32,15 +32,15 @@ rds_password = ""
   * 예) database/dev 에서 실행
 
 ```sh
-# terraform init
-$ terraform init -backend-config=backend.tfvars
+# terragrunt init
+$ terragrunt init
 
-# terraform plan
-$ terraform plan -out=./tfplan -var-file=private.tfvars -var="aws_profile=homeparty_dev"
+# terragrunt plan
+$ terragrunt plan -out=./tfplan -var-file=private.tfvars -var="aws_profile=homeparty_dev"
 
 # terraform apply
-$ terraform apply ./tfplan
+$ terragrunt apply ./tfplan
 
 # terraform destory
-$ terraform destroy -var-file=parivate.tfvars -var="aws_profile=homeparty_dev"
+$ terragrunt destroy -var-file=private.tfvars -var="aws_profile=homeparty_dev"
 ```

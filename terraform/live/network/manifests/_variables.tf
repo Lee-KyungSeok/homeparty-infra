@@ -21,17 +21,20 @@ variable "cidr_numeral" {
 
 variable "cidr_numeral_public" {
   description = "The public CIDR numeral (x.x.x.0/20)"
-  default     = {}
+  type = list(string)
+  default     = []
 }
 
 variable "cidr_numeral_private" {
   description = "The private CIDR numeral (x.x.x.0/20)"
-  default     = {}
+  type = list(string)
+  default     = []
 }
 
 variable "cidr_numeral_private_db" {
   description = "The database CIDR numeral (x.x.x.0/20)"
-  default     = {}
+  type = list(string)
+  default     = []
 }
 
 variable "public_availability_zones" {

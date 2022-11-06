@@ -133,6 +133,18 @@ variable "rds_deletion_protection" {
   default     = false
 }
 
+variable "rds_skip_final_snapshot" {
+  description = "Determines whether a final DB snapshot is created before the DB instance is deleted"
+  type        = bool
+  default     = false
+}
+
+variable "rds_final_snapshot_identifier" {
+  description = "The name of your final DB snapshot when this DB instance is deleted. Must be provided if skip_final_snapshot is set to false"
+  type        = string
+  default     = null
+}
+
 variable "rds_parameter_group_family" {
   description = "The parameter group family"
   type        = string
