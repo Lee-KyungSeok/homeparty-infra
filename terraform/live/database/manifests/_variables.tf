@@ -6,6 +6,7 @@ variable "aws_region" {
 variable "aws_profile" {
   description = "The profile of infra"
   type        = string
+  default     = null
 }
 
 variable "environment" {
