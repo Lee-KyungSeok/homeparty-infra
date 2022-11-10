@@ -36,11 +36,27 @@ rds_password = ""
 $ terragrunt init
 
 # terragrunt plan
-$ terragrunt plan -out=./tfplan -var-file=private.tfvars -var="aws_profile=homeparty_dev"
+$ terragrunt plan -out=./tfplan -var-file=private.tfvars
 
 # terraform apply
 $ terragrunt apply ./tfplan
 
 # terraform destory
-$ terragrunt destroy -var-file=private.tfvars -var="aws_profile=homeparty_dev"
+$ terragrunt destroy -var-file=private.tfvars
+```
+
+* AWS profile 을 변경한다면 아래 명령어를 이용해주세요
+
+```sh
+# terragrunt init
+$ AWS_PROFILE=default terragrunt init
+
+# terragrunt plan
+$ AWS_PROFILE=default terragrunt plan -out=./tfplan  -var-file=private.tfvars
+
+# terragrunt apply
+$ AWS_PROFILE=default terragrunt apply ./tfplan
+
+# terragrunt destory
+$ AWS_PROFILE=default terragrunt destroy -var-file=private.tfvars
 ```

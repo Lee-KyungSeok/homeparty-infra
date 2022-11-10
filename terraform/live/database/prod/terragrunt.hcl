@@ -1,17 +1,24 @@
 terraform {
-  backend "remote" {}
+  source = "../../..//live/database/manifests"
 }
 
-module "database" {
-  source = "../manifests"
+include "backend" {
+  path           = "../../backend.hcl"
+  expose         = true
+}
 
+locals {
+  env_vars = read_terragrunt_config("env.hcl")
+}
+
+inputs = {
   aws_region  = "ap-northeast-2"
-  aws_profile = var.aws_profile
+  aws_profile  = local.env_vars.locals.aws_profile
   environment = "prod"
 
   network_remote_states = {
-    hostname     = "app.terraform.io",
-    organization = "homeparty",
+    hostname     = local.env_vars.locals.tfc_hostname,
+    organization = local.env_vars.locals.tfc_organization,
     workspaces   = "homeparty-prod-network",
   }
 
@@ -20,8 +27,8 @@ module "database" {
   rds_engine_version = "8.0"
 
   rds_port           = 3306
-  rds_username       = var.rds_username
-  rds_password       = var.rds_password
+#  rds_username       = var.rds_username
+#  rds_password       = var.rds_password
   rds_instance_class = "db.t4g.micro"
 
   rds_storage_type      = "gp2"
@@ -39,11 +46,9 @@ module "database" {
 
   rds_apply_immediately   = true
   rds_deletion_protection = false
+  rds_skip_final_snapshot = true
+  rds_final_snapshot_identifier = null
 
   rds_parameter_group_family   = "mysql8.0"
   db_parameter_max_connections = 40
-}
-
-output "main" {
-  value = module.database
 }

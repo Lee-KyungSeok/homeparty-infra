@@ -1,15 +1,24 @@
 terraform {
-  source = "..//manifests"
+  source = "../../..//live/database/manifests"
+}
+
+include "backend" {
+  path           = "../../backend.hcl"
+  expose         = true
+}
+
+locals {
+  env_vars = read_terragrunt_config("env.hcl")
 }
 
 inputs = {
   aws_region  = "ap-northeast-2"
-#  aws_profile = var.aws_profile
+  aws_profile  = local.env_vars.locals.aws_profile
   environment = "dev"
 
   network_remote_states = {
-    hostname     = "app.terraform.io",
-    organization = "homeparty",
+    hostname     = local.env_vars.locals.tfc_hostname,
+    organization = local.env_vars.locals.tfc_organization,
     workspaces   = "homeparty-dev-network",
   }
 
