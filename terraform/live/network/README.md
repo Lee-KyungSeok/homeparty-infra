@@ -5,11 +5,13 @@
 * 기본 path: (~/.aws/credentials)
 
 ```
-[gameper_stage]
+# dev 환경
+[homeparty_dev]
 aws_access_key_id = xxxxxxxxx
 aws_secret_access_key = xxxxxxx
 
-[gameper_prod]
+# prod 환경
+[homeparty_prod]
 aws_access_key_id = xxxxxxxxx
 aws_secret_access_key = xxxxxxx
 ```
